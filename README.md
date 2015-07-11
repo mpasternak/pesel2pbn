@@ -1,6 +1,5 @@
 # pesel2pbn
 
-[![travis-ci status buildu](https://travis-ci.org/mpasternak/pesel2pbn.svg)](https://travis-ci.org/mpasternak/pesel2pbn/)
 
 Program działający pod Windows, do konwersji wielu numerów PESEL na identyfikatory PBN ID używane przez system POL-on i Polską Bibliografię Naukową.
 
