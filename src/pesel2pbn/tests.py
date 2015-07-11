@@ -70,4 +70,4 @@ def test_wykonaj_dobre_PESELe_bez_tokena(qtbot, p2p_window):
     p2p_window.ui.token.setText('token-123')
 
     qtbot.mouseClick(p2p_window.ui.wykonajButton, QtCore.Qt.LeftButton)
-    assert len(p2p_window.networkAccessManager.mock_calls) == 3
+    assert len(p2p_window.networkAccessManager.mock_calls) == 2

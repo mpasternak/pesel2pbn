@@ -109,18 +109,6 @@ class Pesel2PBNWindow(QMainWindow):
                 QMessageBox.Ok)
             return
 
-        # network accessible?
-        if not self.networkAccessManager.networkAccessible():
-
-            reply = QMessageBox.critical(
-                self,
-                'Sieć nie jest dostępna',
-                "Wygląda na to, że sieć nie jest dostępna. Czy chcesz spróbować mimo to?",
-                QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-
-            if reply == QMessageBox.No:
-                return
-
         self.ui.numeryPBN.clear()
 
         dane = self.getPESELfromUI()
