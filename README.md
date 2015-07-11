@@ -20,3 +20,11 @@ Praca z programem może odbywać się wg następującego schematu:
 Oprogramowanie PESEL2PBN działa pod Windows 7 i wyższych.
 
 Możliwe jest uruchomienie programu pod Linux lub Mac OS X. 
+
+## Bezpieczeństwo
+
+Program zapisuje wartosć token w Rejestrze systemu operacyjnego Windows.
+
+Program *nie* *zapisuje* nigdzie przetwarzanych numerów PESEL oraz PBN, sa one przetrzymywane w pamieci. 
+
+Numery PESEL do PBN przesylane sa za pomoca protokolu HTTPS, czyli sa zaszyfrowane podczas przesylania ich w siec. 
