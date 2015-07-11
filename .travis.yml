@@ -6,4 +6,4 @@ before_install:
   - sudo apt-get install -y python3-pyqt5 python3-pytest  python3-pip
   - sudo pip3 install pytest-qt
 script:
-  - cd src/pesel2pbn && pytest tests.py
+  - cd src/pesel2pbn && py.test tests.py
