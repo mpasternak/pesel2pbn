@@ -53,9 +53,7 @@ class Pesel2PBNWindow(QMainWindow):
 
     def pastePESEL(self):
         cb = QApplication.clipboard()
-
         value = cb.text(mode=QClipboard.Clipboard)
-        print(type(value), value)
         self.ui.numeryPESEL.setPlainText(value)
 
     def copyPBN(self):
