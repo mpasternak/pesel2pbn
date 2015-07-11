@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>538</width>
-    <height>451</height>
+    <width>490</width>
+    <height>413</height>
    </rect>
   </property>
   <property name="cursor">
@@ -17,8 +17,8 @@
    <string>pesel2pbn</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_5">
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -32,7 +32,22 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="token">
+            <property name="toolTip">
+             <string>Token autoryzacyjny może otrzymać osoba mająca uprawnienia 
+zarządzającego bibliografią w POLon/PBN.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="emptyLineIfNoPBN">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jeżeli brak danego PESEL w PBN, program wstawi domyślnie tekst &amp;quot;Brak w PBN&amp;quot; w listę rezultatów. &lt;/p&gt;&lt;p&gt;Jednakże, jeżeli pożądane przez Ciebie działanie to wstawienie tam pustej linii, wówczas zaznacz tę kontrolkę.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>pusta linia gdy brak w PBN</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -48,7 +63,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="plainTextEdit"/>
+             <widget class="QPlainTextEdit" name="numeryPESEL">
+              <property name="placeholderText">
+               <string>Wpisz numery PESEL</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -62,7 +81,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="plainTextEdit_2"/>
+             <widget class="QPlainTextEdit" name="numeryPBN">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+              <property name="placeholderText">
+               <string>... kliknij &quot;Wykonaj&quot;, aby pobrać PBN IDs.</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -71,39 +97,58 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>Wykonaj</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="pastePESEL">
+          <property name="text">
+           <string>Wklej numery PESEL ze schowka</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="wykonajButton">
+          <property name="toolTip">
+           <string>Kliknij, aby uruchomić procedurę pobrania numerów z PBN.</string>
+          </property>
+          <property name="text">
+           <string>Odpytaj PBN</string>
+          </property>
+          <property name="shortcut">
+           <string>Alt+W</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="copyPBN">
+          <property name="text">
+           <string>Kopiuj PBN IDs do schowka</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="oProgramie">
+          <property name="text">
+           <string>O programie</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>538</width>
-     <height>21</height>
-    </rect>
+  <action name="actionO_programie">
+   <property name="text">
+    <string>O programie</string>
    </property>
-   <widget class="QMenu" name="menu_O_programie">
-    <property name="title">
-     <string>&amp;O programie</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menu_Wyj_cie">
-    <property name="title">
-     <string>&amp;Wyjście</string>
-    </property>
-   </widget>
-   <addaction name="menu_O_programie"/>
-   <addaction name="menu_Wyj_cie"/>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  </action>
  </widget>
  <resources/>
  <connections/>
