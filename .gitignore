@@ -55,3 +55,15 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# PyCharm
+.idea/
+
+# ISS
+Output/
+
+# Moje
+Vagrantfile
+*~
+src/pesel2pbn/pesel2pbn_auto.py
+venv/
