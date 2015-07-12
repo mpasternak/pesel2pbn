@@ -1,4 +1,6 @@
 # pesel2pbn
+
+
 Program działający pod Windows, do konwersji wielu numerów PESEL na identyfikatory PBN ID używane przez system POL-on i Polską Bibliografię Naukową.
 
 Program działa na komputerze lokalnym, wykorzystując publiczne API Polskiej Bibliografii Naukowej, https://pbn.nauka.gov.pl/help/pl/specyfikacje-techniczne/specyfikacja-publicznego-api
@@ -20,3 +22,11 @@ Praca z programem może odbywać się wg następującego schematu:
 Oprogramowanie PESEL2PBN działa pod Windows 7 i wyższych.
 
 Możliwe jest uruchomienie programu pod Linux lub Mac OS X. 
+
+## Bezpieczeństwo
+
+Program zapisuje wartosć token w Rejestrze systemu operacyjnego Windows.
+
+Program *nie* *zapisuje* nigdzie przetwarzanych numerów PESEL oraz PBN, sa one przetrzymywane w pamieci. 
+
+Numery PESEL do PBN przesylane sa za pomoca protokolu HTTPS, czyli sa zaszyfrowane podczas przesylania ich w siec. 
