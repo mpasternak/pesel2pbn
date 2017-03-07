@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>490</width>
-    <height>413</height>
+    <width>733</width>
+    <height>527</height>
    </rect>
   </property>
   <property name="cursor">
@@ -17,80 +17,107 @@
    <string>pesel2pbn</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <property name="minimumSize">
+    <size>
+     <width>733</width>
+     <height>363</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Token:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="token">
-            <property name="toolTip">
-             <string>Token autoryzacyjny może otrzymać osoba mająca uprawnienia 
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Token:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLineEdit" name="token">
+          <property name="toolTip">
+           <string>Token autoryzacyjny może otrzymać osoba mająca uprawnienia 
 zarządzającego bibliografią w POLon/PBN.</string>
+          </property>
+          <property name="placeholderText">
+           <string>token uzyskany z systemu PBN</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QCheckBox" name="emptyLineIfNoPBN">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jeżeli brak danego PESEL w PBN, program wstawi domyślnie tekst &amp;quot;Brak w PBN&amp;quot; w listę rezultatów. &lt;/p&gt;&lt;p&gt;Jednakże, jeżeli pożądane przez Ciebie działanie to wstawienie tam pustej linii, wówczas zaznacz tę kontrolkę.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="text">
+           <string>pusta linia gdy brak w PBN</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>URL:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="2">
+         <widget class="QLineEdit" name="url">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>https://pbn.nauka.gov.pl/sedno-webapp/data/persons/auth/{token}/pesel.{pesel}/id.pbn</string>
+          </property>
+          <property name="placeholderText">
+           <string>adres URL do wykonania zapytania o PBN ID</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Numery PESEL:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="emptyLineIfNoPBN">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jeżeli brak danego PESEL w PBN, program wstawi domyślnie tekst &amp;quot;Brak w PBN&amp;quot; w listę rezultatów. &lt;/p&gt;&lt;p&gt;Jednakże, jeżeli pożądane przez Ciebie działanie to wstawienie tam pustej linii, wówczas zaznacz tę kontrolkę.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>pusta linia gdy brak w PBN</string>
+           <widget class="QPlainTextEdit" name="numeryPESEL">
+            <property name="placeholderText">
+             <string>Wpisz numery PESEL</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Numery PESEL:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPlainTextEdit" name="numeryPESEL">
-              <property name="placeholderText">
-               <string>Wpisz numery PESEL</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>PBN ID:</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>PBN ID:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPlainTextEdit" name="numeryPBN">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-              <property name="placeholderText">
-               <string>... kliknij &quot;Wykonaj&quot;, aby pobrać PBN IDs.</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QPlainTextEdit" name="numeryPBN">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="placeholderText">
+             <string>... kliknij &quot;Wykonaj&quot;, aby pobrać PBN IDs.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -120,7 +147,7 @@ zarządzającego bibliografią w POLon/PBN.</string>
            <bool>false</bool>
           </property>
           <property name="default">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -143,6 +170,10 @@ zarządzającego bibliografią w POLon/PBN.</string>
      </layout>
     </item>
    </layout>
+   <zorder>pastePESEL</zorder>
+   <zorder>label_4</zorder>
+   <zorder>url</zorder>
+   <zorder>treatReplyAsJSON</zorder>
   </widget>
   <action name="actionO_programie">
    <property name="text">

@@ -1,22 +1,28 @@
 # -*- encoding: utf-8 -*-
 
 import sys
-
 from cx_Freeze import setup, Executable
+
 from pesel2pbn.version import VERSION
 
-exe = None
+base = None
+targetName = "pesel2pbn.app"
+
 if sys.platform == "win32":
-    exe = Executable(
-        script="pesel2pbn/main.py",
-        initScript = None,
-        base="Win32GUI",
-        targetName="pesel2pbn.exe",
-        compress = True,
-        copyDependentFiles = True,
-        appendScriptToExe = False,
-        appendScriptToLibrary = False,
-        icon = None
+    base="Win32GUI"
+    targetName = "pesel2pbn.exe"
+
+
+exe = Executable(
+    script="pesel2pbn/main.py",
+    initScript = None,
+    base=base,
+    targetName=targetName,
+    compress=True,
+    copyDependentFiles = True,
+    appendScriptToExe = False,
+    appendScriptToLibrary = False,
+    icon = None
     )
 
 setup(

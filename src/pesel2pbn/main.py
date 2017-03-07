@@ -39,13 +39,14 @@ class Pesel2PBNWindow(QMainWindow):
             "<br>"
             "wersja {wersja}"
             "<p>"
-            "(C) 2015 Michał Pasternak &lt;<a href=mailto:michal.dtz@gmail.com>michal.dtz@gmail.com</a>>"
+            "(C) 2015-2017 Michał Pasternak &lt;<a href=mailto:michal.dtz@gmail.com>michal.dtz@gmail.com</a>>"
             "<br>"
-            "(C) 2015 <a href=http://iplweb.pl>iplweb.pl</a>"
+            "(C) 2015-2017 <a href=http://iplweb.pl>iplweb.pl</a>"
             "<p>"
             "Program rozpowszechniany jest na zasadach licencji MIT."
             "<br>"
-            "Kod źródłowy i issue tracker dostępny na <a href=\"http://github.com/mpasternak/pesel2pbn/\">http://github.com/mpasternak/pesel2pbn</a>".format(
+            "Kod źródłowy i issue tracker dostępny na<br>"
+            "<a href=\"http://github.com/mpasternak/pesel2pbn/\">http://github.com/mpasternak/pesel2pbn</a>".format(
                 wersja=VERSION
             )
 
@@ -64,11 +65,13 @@ class Pesel2PBNWindow(QMainWindow):
     def saveSettings(self):
         settings = get_QSettings()
         settings.setValue('token', self.ui.token.text().strip())
+        settings.setValue('url', self.ui.url.text().strip())
         settings.setValue('empty_line', self.ui.emptyLineIfNoPBN.checkState())
 
     def loadSettings(self):
         settings = get_QSettings()
         self.ui.token.setText(settings.value('token', ''))
+        self.ui.url.setText(settings.value("url", "https://pbn.nauka.gov.pl/sedno-webapp/data/persons/auth/{token}/pesel.{pesel}/id.pbn"))
         self.ui.emptyLineIfNoPBN.setCheckState(settings.value('empty_line', False))
 
     def cancelAllRequests(self):
@@ -138,7 +141,8 @@ class Pesel2PBNWindow(QMainWindow):
                     QMessageBox.Ok)
                 return
 
-        URL = "https://pbn.nauka.gov.pl/data/persons/auth/{token}/pesel.{pesel}/id.pbn"
+        # URL = "https://pbn.nauka.gov.pl/data/persons/auth/{token}/pesel.{pesel}/id.pbn"
+        URL = self.ui.url.text().strip()
 
         for line in dane:
             reply = self.networkAccessManager.get(QNetworkRequest(
