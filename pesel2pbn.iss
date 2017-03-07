@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "pesel2pbn"
-#define MyAppVersion "0.1"
+#define MyAppVersion "0.2.0"
 #define MyAppPublisher "IPLWeb - Micha³ Pasternak"
 #define MyAppURL "https://github.com/mpasternak/pesel2pbn/"
 #define MyAppExeName "pesel2pbn.exe"
@@ -22,7 +22,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=C:\code\pesel2pbn\LICENSE
+LicenseFile=LICENSE
 OutputBaseFilename=pesel2pbn-setup
 Compression=lzma
 SolidCompression=yes
@@ -35,8 +35,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "C:\code\pesel2pbn\src\build\exe.win32-3.4\pesel2pbn.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\code\pesel2pbn\src\build\exe.win32-3.4\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "src\build\exe.win32-3.6\pesel2pbn.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "src\build\exe.win32-3.6\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
