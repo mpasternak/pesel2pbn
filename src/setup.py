@@ -7,10 +7,15 @@ from pesel2pbn.version import VERSION
 
 base = None
 targetName = "pesel2pbn.app"
+include_files = None
 
 if sys.platform == "win32":
     base="Win32GUI"
     targetName = "pesel2pbn.exe"
+    include_files = [
+        ("%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\plugins\platforms\qwindows.dll",
+         "platforms\qwindows.dll" )
+        ],
 
 
 exe = Executable(
@@ -18,10 +23,6 @@ exe = Executable(
     initScript = None,
     base=base,
     targetName=targetName,
-    compress=True,
-    copyDependentFiles = True,
-    appendScriptToExe = False,
-    appendScriptToLibrary = False,
     icon = None
     )
 
@@ -42,10 +43,7 @@ setup(
                 "PyQt5.QtWidgets",
                 "pesel2pbn.pesel2pbn_auto"
             ],
-            "include_files": [
-                ("C:\Python34\Lib\site-packages\PyQt5\plugins\platforms\qwindows.dll",
-                 "platforms\qwindows.dll" )
-                ],
+            "include_files": include_files,
             "excludes": [
                 '_gtkagg',
                 '_tkagg',
