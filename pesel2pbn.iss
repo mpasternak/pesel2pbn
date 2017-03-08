@@ -19,11 +19,11 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
-DefaultGroupName={#MyAppName}
+DefaultDirName={pf}\{#MyAppName}-{#MyAppVersion}
+DefaultGroupName="{#MyAppName} {#MyAppVersion}"
 AllowNoIcons=yes
 LicenseFile=LICENSE
-OutputBaseFilename=pesel2pbn-setup
+OutputBaseFilename=pesel2pbn-setup-{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
 
@@ -40,7 +40,7 @@ Source: "src\build\exe.win32-3.6\*"; DestDir: "{app}"; Flags: ignoreversion recu
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\{#MyAppName} {#MyAppVersion}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "{#MyAppURL}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
