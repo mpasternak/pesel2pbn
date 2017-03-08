@@ -44,7 +44,7 @@ if sys.platform == "win32":
 
         (r"%WINDIR%\system32\ucrtbase.dll".replace("%WINDIR%", os.getenv("WINDIR")), "ucrtbase.dll"),
 
-        (r"%ProgramFiles%\Internet Explorer\IEShims.dll", "IEShims.dll"),
+        (r"%ProgramFiles%\Internet Explorer\IEShims.dll".replace("%ProgramFiles%", os.getenv("ProgramFiles")), "IEShims.dll"),
         
         (r"%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\bin\concrt140.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE")), "concrt140.dll"),
 
