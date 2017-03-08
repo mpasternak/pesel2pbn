@@ -10,11 +10,45 @@ base = None
 targetName = "pesel2pbn.app"
 include_files = []
 
+def api_ms_win_missing_includes():
+    for elem in ["core-file-l1-2-0.dll",
+                 "core-file-l2-1-0.dll",
+                 "core-localization-l1-2-0.dll",
+                 "core-processthreads-l1-1-1.dll",
+                 "core-synch-l1-2-0.dll",
+                 "core-timezone-l1-1-0.dll",
+                 "core-xstate-l2-1-0.dll",
+                 "crt-conio-l1-1-0.dll",
+                 "crt-convert-l1-1-0.dll",
+                 "crt-environment-l1-1-0.dll",
+                 "crt-filesystem-l1-1-0.dll",
+                 "crt-heap-l1-1-0.dll",
+                 "crt-locale-l1-1-0.dll",
+                 "crt-math-l1-1-0.dll",
+                 "crt-multibyte-l1-1-0.dll",
+                 "crt-private-l1-1-0.dll",
+                 "crt-process-l1-1-0.dll",
+                 "crt-runtime-l1-1-0.dll",
+                 "crt-stdio-l1-1-0.dll",
+                 "crt-string-l1-1-0.dll",
+                 "crt-time-l1-1-0.dll",
+                 "crt-utility-l1-1-0.dll",
+                 "eventing-provider-l1-1-0.dll"]:
+        yield (("%WINDIR%\system32\api-ms-win-" + elem).replace("%WINDIR%", os.getenv("WINDIR")), "api-ms-win-" + elem)
+
 if sys.platform == "win32":
     base="Win32GUI"
     targetName = "pesel2pbn.exe"
     include_files = [
-        ("%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\plugins\platforms\qwindows.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE")), "platforms\qwindows.dll" )]
+        ("%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\plugins\platforms\qwindows.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE")), "platforms\qwindows.dll"),
+
+        ("%WINDIR%\system32\ucrtbase.dll".replace("%WINDIR%", os.getenv("WINDIR")), "ucrtbase.dll"),
+
+        ("%ProgramFiles%\Internet Explorer\IEShims.dll", "IEShims.dll"),
+        
+        ("%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\bin\concrt140.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE")), "concrt140.dll"),
+
+        ] + list(api_ms_win_missing_includes())
 
 
 exe = Executable(
