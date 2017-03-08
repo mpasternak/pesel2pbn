@@ -14,9 +14,7 @@ if sys.platform == "win32":
     base="Win32GUI"
     targetName = "pesel2pbn.exe"
     include_files = [
-        ("%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\plugins\platforms\qwindows.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE"),
-         "platforms\qwindows.dll" )
-        ],
+        ("%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\plugins\platforms\qwindows.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE")), "platforms\qwindows.dll" )]
 
 
 exe = Executable(
