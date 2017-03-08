@@ -34,19 +34,19 @@ def api_ms_win_missing_includes():
                  "crt-time-l1-1-0.dll",
                  "crt-utility-l1-1-0.dll",
                  "eventing-provider-l1-1-0.dll"]:
-        yield (("%WINDIR%\system32\api-ms-win-" + elem).replace("%WINDIR%", os.getenv("WINDIR")), "api-ms-win-" + elem)
+        yield ((r"%WINDIR%\system32\api-ms-win-" + elem).replace("%WINDIR%", os.getenv("WINDIR")), "api-ms-win-" + elem)
 
 if sys.platform == "win32":
     base="Win32GUI"
     targetName = "pesel2pbn.exe"
     include_files = [
-        ("%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\plugins\platforms\qwindows.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE")), "platforms\qwindows.dll"),
+        (r"%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\plugins\platforms\qwindows.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE")), "platforms\qwindows.dll"),
 
-        ("%WINDIR%\system32\ucrtbase.dll".replace("%WINDIR%", os.getenv("WINDIR")), "ucrtbase.dll"),
+        (r"%WINDIR%\system32\ucrtbase.dll".replace("%WINDIR%", os.getenv("WINDIR")), "ucrtbase.dll"),
 
-        ("%ProgramFiles%\Internet Explorer\IEShims.dll", "IEShims.dll"),
+        (r"%ProgramFiles%\Internet Explorer\IEShims.dll", "IEShims.dll"),
         
-        ("%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\bin\concrt140.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE")), "concrt140.dll"),
+        (r"%USERPROFILE%\AppData\Local\Programs\Python\Python36-32\Lib\site-packages\PyQt5\Qt\bin\concrt140.dll".replace("%USERPROFILE%", os.getenv("USERPROFILE")), "concrt140.dll"),
 
         ] + list(api_ms_win_missing_includes())
 
