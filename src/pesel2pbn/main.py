@@ -19,6 +19,7 @@ class Pesel2PBNWindow(QMainWindow):
         super(Pesel2PBNWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.setWindowTitle("pesel2pbn %s" % VERSION)
         self.ui.wykonajButton.clicked.connect(self.startWork)
         self.ui.pastePESEL.clicked.connect(self.pastePESEL)
         self.ui.copyPBN.clicked.connect(self.copyPBN)
