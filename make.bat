@@ -1,5 +1,10 @@
 @echo off
 cd src
+
+cd pesel2pbn
+pyuic5 pesel2pbn.ui > pesel2pbn_auto.py
+cd ..
+
 python.exe setup.py build
 cd ..
 
