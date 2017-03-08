@@ -1,6 +1,8 @@
 @echo off
 cd src
 
+rmdir /s /q build
+
 cd pesel2pbn
 pyuic5 pesel2pbn.ui > pesel2pbn_auto.py
 cd ..
