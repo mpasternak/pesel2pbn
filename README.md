@@ -1,7 +1,5 @@
 # pesel2pbn
 
-![Build status](https://codeship.com/projects/465fba40-e730-0134-79ff-465a81ad3c78/status?branch=master)
-
 
 Program działający pod Windows, do konwersji wielu numerów PESEL na identyfikatory PBN ID używane przez system POL-on i Polską Bibliografię Naukową.
 
