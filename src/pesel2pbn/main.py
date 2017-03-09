@@ -32,6 +32,9 @@ class Pesel2PBNWindow(QMainWindow):
         self.networkResults = {}
         self.progressDialog = None
 
+        self.currentQuery = None
+        self.currentLine = None
+
     def aboutBox(self):
         QMessageBox.about(
             self,
@@ -75,13 +78,6 @@ class Pesel2PBNWindow(QMainWindow):
         self.ui.url.setText(settings.value("url", "https://pbn.nauka.gov.pl/sedno-webapp/data/persons/auth/{token}/pesel.{pesel}/id.pbn"))
         self.ui.emptyLineIfNoPBN.setCheckState(settings.value('empty_line', False))
 
-    def cancelAllRequests(self):
-        for reply in self.networkResults.keys():
-            if not reply.isFinished():
-                reply.abort()
-                reply.deleteLater()
-        self.networkResults = {}
-
     def getPESELfromUI(self):
         dane = self.ui.numeryPESEL.toPlainText().split("\n")
 
@@ -94,14 +90,11 @@ class Pesel2PBNWindow(QMainWindow):
 
     def startWork(self, *args, **kw):
         self.saveSettings()
-        self.cancelAllRequests()
         self.ui.numeryPBN.clear()
 
-        for elem in self.networkResults.keys():
-            elem.abort()
+        self.cancelNetworkOperations()
 
-        if self.progressDialog is not None:
-            self.progressDialog.close()
+        self.closeProgressBar()
 
         token = self.ui.token.text()
 
@@ -115,8 +108,9 @@ class Pesel2PBNWindow(QMainWindow):
 
         self.ui.numeryPBN.clear()
 
-        dane = self.getPESELfromUI()
-        if not dane:
+        self.dane = self.getPESELfromUI()
+
+        if not self.dane:
             QMessageBox.critical(
                 self,
                 "Brak wpisanych danych",
@@ -124,7 +118,7 @@ class Pesel2PBNWindow(QMainWindow):
                 QMessageBox.Ok)
             return
 
-        for linia in dane:
+        for linia in self.dane:
             if not linia.strip():
                 QMessageBox.critical(
                     self,
@@ -142,23 +136,37 @@ class Pesel2PBNWindow(QMainWindow):
                     QMessageBox.Ok)
                 return
 
-        # URL = "https://pbn.nauka.gov.pl/data/persons/auth/{token}/pesel.{pesel}/id.pbn"
         URL = self.ui.url.text().strip()
 
-        for line in dane:
-            reply = self.networkAccessManager.get(QNetworkRequest(
-                QUrl(URL.format(token=token, pesel=line))))
-
-            self.networkResults[reply] = [line, None]
-
-        self.progressDialog = QProgressDialog("Kontaktuję się z serwerem PBN...", "Anuluj", 0, len(self.networkResults.keys()), self)
+        self.progressDialog = QProgressDialog("Kontaktuję się z serwerem PBN...", "Anuluj", 0, len(self.dane), self)
         self.progressDialog.setWindowModality(Qt.WindowModal)
         self.progressDialog.setValue(0)
         self.progressDialog.show()
-        self.progressDialog.canceled.connect(self.canceled)
+        self.progressDialog.canceled.connect(self.progressDialogCancelled)
 
-    def canceled(self, *args, **kw):
-        self.cancelAllRequests()
+        self.URL = URL
+        self.token = token
+
+        self.currentLine = 0
+        self.processNextLine()
+
+    def processNextLine(self):
+        self.progressDialog.setValue(self.currentLine)
+        self.currentQuery = self.networkAccessManager.get(QNetworkRequest(
+            QUrl(self.URL.format(token=self.token, pesel=self.dane[self.currentLine]))))
+
+    def cancelNetworkOperations(self):
+        if self.currentQuery is not None:
+            if not self.currentQuery.isFinished():
+                self.currentQuery.abort()
+                # self.currentQuery.deleteLater()
+
+    def closeProgressBar(self):
+        if self.progressDialog is not None:
+            self.progressDialog.close()
+
+    def progressDialogCancelled(self, *args, **kw):
+        self.cancelNetworkOperations()
 
     def finished(self, reply):
 
@@ -170,7 +178,6 @@ class Pesel2PBNWindow(QMainWindow):
         BRAK_W_PBN = "Brak w PBN"
         if self.ui.emptyLineIfNoPBN.checkState():
             BRAK_W_PBN = ''
-
 
         if err != QNetworkReply.NoError:
 
@@ -204,22 +211,16 @@ class Pesel2PBNWindow(QMainWindow):
                 buf = "Odpowiedź z serwera nie do analizy (%r)" % dane
                 pass
 
-
-        self.networkResults[reply][1] = buf
-
-        self.progressDialog.setValue(self.progressDialog.value() + 1)
-
-        if self.progressDialog.value() == -1:
+        self.ui.numeryPBN.appendPlainText(buf)
+        self.currentLine += 1
+        if self.currentLine == len(self.dane):
             self.everythingFinished()
+        else:
+            self.processNextLine()
 
     def everythingFinished(self):
-        out = dict((x[0], x[1]) for x in self.networkResults.values())
-
-        for linia in self.getPESELfromUI():
-            self.ui.numeryPBN.appendPlainText(out[linia]) # ret)
-        # self.ui.numeryPBN.setPlainText(outText)
-
-
+        self.closeProgressBar()
+        self.cancelNetworkOperations()
 
 
 if __name__ == "__main__":
