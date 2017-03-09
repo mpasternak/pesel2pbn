@@ -1,11 +1,11 @@
 from unittest import mock
 from unittest.mock import MagicMock, Mock
 
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QMessageBox, QApplication
 import pytest
-from pesel2pbn.main import Pesel2PBNWindow
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QMessageBox
+
+from .main import Pesel2PBNWindow
 
 WYGENEROWANY_PESEL = '00891702980'  # http://www.bogus.ovh.org/generatory/all.html
 

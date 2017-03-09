@@ -1,18 +1,19 @@
 # -*- encoding: utf-8 -*-
-from PyQt5 import QtGui
 import json
 
+from PyQt5.QtCore import QSettings
 from PyQt5.QtCore import QUrl, Qt, QLocale, QLibraryInfo, QTranslator
-from PyQt5.QtCore import QEventLoop
 from PyQt5.QtGui import QClipboard
-from PyQt5.QtWidgets import QApplication, QMainWindow, QProgressDialog, QMessageBox
-from pesel2pbn.pesel2pbn_auto import Ui_MainWindow
 from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
-from PyQt5.QtCore import QSettings, QPoint
-from pesel2pbn.version import VERSION
+from PyQt5.QtWidgets import QApplication, QMainWindow, QProgressDialog, QMessageBox
+
+from .pesel2pbn_auto import Ui_MainWindow
+from .version import VERSION
+
 
 def get_QSettings():
     return QSettings('IPL', 'PESEL2PBN')
+
 
 class Pesel2PBNWindow(QMainWindow):
     def __init__(self, networkAccessManager):
@@ -75,7 +76,8 @@ class Pesel2PBNWindow(QMainWindow):
     def loadSettings(self):
         settings = get_QSettings()
         self.ui.token.setText(settings.value('token', ''))
-        self.ui.url.setText(settings.value("url", "https://pbn.nauka.gov.pl/sedno-webapp/data/persons/auth/{token}/pesel.{pesel}/id.pbn"))
+        self.ui.url.setText(settings.value("url",
+                                           "https://pbn.nauka.gov.pl/sedno-webapp/data/persons/auth/{token}/pesel.{pesel}/id.pbn"))
         self.ui.emptyLineIfNoPBN.setCheckState(settings.value('empty_line', False))
 
     def getPESELfromUI(self):
@@ -86,7 +88,6 @@ class Pesel2PBNWindow(QMainWindow):
             dane = dane[:-1]
 
         return dane
-
 
     def startWork(self, *args, **kw):
         self.saveSettings()
@@ -236,9 +237,8 @@ if __name__ == "__main__":
     else:
         locale = QLocale.system().name()
     translator.load('qt_%s' % locale,
-        QLibraryInfo.location(QLibraryInfo.TranslationsPath))
+                    QLibraryInfo.location(QLibraryInfo.TranslationsPath))
     app.installTranslator(translator)
-
 
     networkAccessManager = QNetworkAccessManager(app)
     window = Pesel2PBNWindow(networkAccessManager=networkAccessManager)
