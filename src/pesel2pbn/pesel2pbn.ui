@@ -115,7 +115,7 @@ zarządzającego bibliografią w POLon/PBN.</string>
              <bool>true</bool>
             </property>
             <property name="placeholderText">
-             <string>... kliknij &quot;Wykonaj&quot;, aby pobrać PBN IDs.</string>
+             <string>... kliknij &quot;Odpytaj PBN&quot;, aby pobrać PBN IDs.</string>
             </property>
            </widget>
           </item>
@@ -170,10 +170,6 @@ zarządzającego bibliografią w POLon/PBN.</string>
      </layout>
     </item>
    </layout>
-   <zorder>pastePESEL</zorder>
-   <zorder>label_4</zorder>
-   <zorder>url</zorder>
-   <zorder>treatReplyAsJSON</zorder>
   </widget>
   <action name="actionO_programie">
    <property name="text">
