@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "pesel2pbn"
-#define MyAppVersion "0.2.1"
+#define MyAppVersion "0.2.2"
 #define MyAppPublisher "IPLWeb - Michał Pasternak"
 #define MyAppURL "https://github.com/mpasternak/pesel2pbn/"
 #define MyAppExeName "pesel2pbn.exe"
