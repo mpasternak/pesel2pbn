@@ -259,8 +259,8 @@ class Pesel2PBNWindow(QMainWindow):
         self.closeProgressBar()
         self.cancelNetworkOperations()
 
-
-if __name__ == "__main__":
+        
+def entry_point():
     import sys
 
     app = QApplication(sys.argv)
@@ -283,3 +283,7 @@ if __name__ == "__main__":
     window.loadSettings()
 
     sys.exit(app.exec_())
+
+    
+if __name__ == "__main__":
+    entry_point()
