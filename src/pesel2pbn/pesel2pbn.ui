@@ -28,21 +28,13 @@
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>Token:</string>
+           <string>Data i czas:</string>
           </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLineEdit" name="token">
-          <property name="toolTip">
-           <string>Token autoryzacyjny może otrzymać osoba mająca uprawnienia 
-zarządzającego bibliografią w POLon/PBN.</string>
-          </property>
-          <property name="placeholderText">
-           <string>token uzyskany z systemu PBN</string>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -56,14 +48,45 @@ zarządzającego bibliografią w POLon/PBN.</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="2" column="2">
+         <widget class="QDateTimeEdit" name="dateTimeEdit">
+          <property name="toolTip">
+           <string>Parametr daty i czasu zostanie użyty do wygenerowania klucza dostępowego API</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Klucz API:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLineEdit" name="token">
+          <property name="toolTip">
+           <string>Token autoryzacyjny może otrzymać osoba mająca uprawnienia 
+zarządzającego bibliografią w POLon/PBN.</string>
+          </property>
+          <property name="placeholderText">
+           <string>klucz API pozyskany z systemu PBN</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
          <widget class="QLabel" name="label_4">
           <property name="text">
            <string>URL:</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
          </widget>
         </item>
-        <item row="1" column="1" colspan="2">
+        <item row="3" column="2">
          <widget class="QLineEdit" name="url">
           <property name="font">
            <font>
@@ -71,7 +94,7 @@ zarządzającego bibliografią w POLon/PBN.</string>
            </font>
           </property>
           <property name="text">
-           <string>https://pbn.nauka.gov.pl/sedno-webapp/data/persons/auth/{token}/pesel.{pesel}/id.pbn</string>
+           <string>https://pbn-ms.opi.org.pl/pbn-report-web/api/v2/contributors/get/{id}</string>
           </property>
           <property name="placeholderText">
            <string>adres URL do wykonania zapytania o PBN ID</string>
