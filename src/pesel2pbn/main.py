@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 import json
+from hashlib import sha1
+from datetime import datetime
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtCore import QUrl, Qt, QLocale, QLibraryInfo, QTranslator
@@ -27,6 +29,8 @@ class Pesel2PBNWindow(QMainWindow):
 
         self.ui.oProgramie.clicked.connect(self.aboutBox)
 
+        self.ui.dateTimeEdit.setDateTime(datetime.now())
+
         self.networkAccessManager = networkAccessManager
         self.networkAccessManager.finished.connect(self.finished)
 
@@ -44,9 +48,9 @@ class Pesel2PBNWindow(QMainWindow):
             "<br>"
             "wersja {wersja}"
             "<p>"
-            "(C) 2015-2017 Michał Pasternak &lt;<a href=mailto:michal.dtz@gmail.com>michal.dtz@gmail.com</a>>"
+            "(C) 2015-2018 Michał Pasternak &lt;<a href=mailto:michal.dtz@gmail.com>michal.dtz@gmail.com</a>>"
             "<br>"
-            "(C) 2015-2017 <a href=http://iplweb.pl>iplweb.pl</a>"
+            "(C) 2015-2018 <a href=http://iplweb.pl>iplweb.pl</a>"
             "<p>"
             "Program rozpowszechniany jest na zasadach licencji MIT."
             "<br>"
@@ -76,8 +80,10 @@ class Pesel2PBNWindow(QMainWindow):
     def loadSettings(self):
         settings = get_QSettings()
         self.ui.token.setText(settings.value('token', ''))
-        self.ui.url.setText(settings.value("url",
-                                           "https://pbn.nauka.gov.pl/sedno-webapp/data/persons/auth/{token}/pesel.{pesel}/id.pbn"))
+        self.ui.url.setText(settings.value(
+            "url",
+            "https://pbn-ms.opi.org.pl/pbn-report-web/api/v2/contributors/get/{id}")
+        )
         self.ui.emptyLineIfNoPBN.setCheckState(settings.value('empty_line', False))
 
     def getPESELfromUI(self):
@@ -153,8 +159,38 @@ class Pesel2PBNWindow(QMainWindow):
 
     def processNextLine(self):
         self.progressDialog.setValue(self.currentLine)
-        self.currentQuery = self.networkAccessManager.get(QNetworkRequest(
-            QUrl(self.URL.format(token=self.token, pesel=self.dane[self.currentLine]))))
+
+        # https://polon.nauka.gov.pl/help_pbn/doku.php/procesy/start
+        # Weź token API
+        apiKey = self.ui.token.text() or ""
+
+        # Dodaj do niego godzinę i datę w formacie HHddMMYYYY
+        # (np dla godz. 8:35 w dniu 7 czerwca 2018 roku dodajemy „0807062018”)
+        czas = self.ui.dateTimeEdit.dateTime()
+        apiKey += czas.toString("HHddMMyyyy")
+
+        # użyj funkcji hashujacej sha1 do zakodowania klucza z doklejoną godziną i datą
+        shaApiKey = sha1(apiKey.encode("utf-8")).hexdigest()
+
+        try:
+            url = QUrl(self.URL.format(id=self.dane[self.currentLine]))
+        except KeyError:
+            self.cancelNetworkOperations()
+            QMessageBox.critical(
+                self,
+                "Nie można sformatować zapytania",
+                "Nie można sformatować zapytania. Sprawdź, czy wartość URL jest "
+                "aktualna i zgodnie ze stroną "
+                "https://pbn-ms.opi.org.pl/pbn-report-web/api/index.html#operation/Pobierz%20informacje%20o%20osobach%20po%20PESEL/POL-on%20UID ",
+                QMessageBox.Ok
+            )
+            self.progressDialog.close()
+            return
+
+        req = QNetworkRequest(url)
+        req.setRawHeader(b"X-Auth-API-Key", bytes(shaApiKey, "ascii"))
+
+        self.currentQuery = self.networkAccessManager.get(req)
 
     def cancelNetworkOperations(self):
         if self.currentQuery is not None:
